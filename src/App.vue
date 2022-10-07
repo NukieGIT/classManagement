@@ -1,11 +1,11 @@
 <template>
-    <h1>hello: {{ test }}</h1><br>
-    <input v-model="test" type="text">
+    <Header>
+        <ThemeSwitch />
+    </Header>
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const test = ref("")
+import ThemeSwitch from './components/ThemeSwitch.vue';
+import Header from './components/Header.vue';
 
 </script>

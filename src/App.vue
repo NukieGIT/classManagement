@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import ThemeSwitch from './components/ThemeSwitch.vue';
-import Header from './components/Header.vue';
+    import ThemeSwitch from './components/ThemeSwitch.vue';
+    import Header from './components/Header.vue';
 
 </script>

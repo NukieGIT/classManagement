@@ -23,8 +23,8 @@
 .dark {
     --bg: var(--purple-800);
     --bg-nav: var(--purple-900);
-    --text: var(--purple-100);
-    --bg-secondary: var(--purple-200);
+    --text: var(--purple-200);
+    --bg-secondary: var(--purple-400);
 }
 
 .radzio {

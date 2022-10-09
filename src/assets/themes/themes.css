@@ -1,23 +1,24 @@
 :root {
     --purple-100: rgb(233, 219, 255);
     --purple-200: rgb(205, 174, 255);
+    --purple-300: rgb(174, 133, 241);
     --purple-400: rgb(70, 9, 168);
     --purple-800: rgb(11, 0, 29);
     --purple-900: rgb(7, 0, 19);
 
-    /* RADIOZ STILES */
+    /* RADIO STILES */
     
-    --water:rgb(24,12,200);
-    --sand:rgb(200,80,0);
-    --darkerWater:rgb(14, 9, 89);
-    --darkerSand:rgb(108, 43, 0);
+    --purple-101:rgb(24,12,200);
+    --purple-102:rgb(200,80,0);
+    --purple-152:rgb(14, 9, 89);
+    --prRUple-69:rgb(108, 43, 0);
 }
 
 .light {
     --bg: var(--purple-100);
     --bg-nav: var(--purple-200);
     --text: var(--purple-900);
-    --bg-secondary: var(--purple-400);
+    --bg-secondary: var(--purple-300);
 }
 
 .dark {
@@ -28,8 +29,8 @@
 }
 
 .radzio {
-    --bg: var(--darkerSand);
-    --bg-nav: var(--darkerWater);
-    --text: var(--sand);
-    --bg-secondary: var(--water);
+    --bg: var(--prRUple-69);
+    --bg-nav: var(--purple-152);
+    --text: var(--purple-102);
+    --bg-secondary: var(--purple-101);
 }

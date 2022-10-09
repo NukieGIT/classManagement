@@ -8,10 +8,12 @@
     transition: none !important;
 }
 
+.theme-transition {
+    transition: background-color 500ms ease-in-out, color 1000ms ease-in-out;
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: var(--bg);
-    color: var(--text);
-    transition: background-color 500ms ease-in-out, color 1000ms ease-in-out;
 }

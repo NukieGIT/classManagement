@@ -1,5 +1,5 @@
 <template>
-    <select v-model="theme" ref="select">
+    <select v-model="theme" ref="select" class="theme-transition">
         <option value="light">Light</option>
         <option value="dark">Dark</option>
         <option value="radzio">Radzio</option>
@@ -14,12 +14,12 @@
     const select = ref()
 
     onMounted(() => {
-        const value = localStorage.getItem("theme") === null ? theme.value : localStorage.getItem("theme")
+        const value = localStorage.getItem("theme") === null ? "light" : localStorage.getItem("theme")
         select.value.value = value
         setTheme(value)
         setTimeout(() => {
             document.body.classList.remove("preload")
-        }, 0);
+        }, 0)
     })
     
     function setTheme(theme) {

@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header class="theme-transition">
         <p>navBarElem1</p>
         <p>navBarElem2</p>
         <p>navBarElem3</p>
@@ -15,6 +15,7 @@
         justify-content: space-evenly;
         align-items: center;
         width: 100%;
+        color: var(--text);
         height: 5rem;
     }
 

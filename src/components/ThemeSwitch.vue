@@ -36,6 +36,8 @@
 <style scoped>
 
     select {
+        border-radius: 0.5rem;
+        color: var(--text);
         margin: 50px;
         width: 150px;
         padding: 5px 35px 5px 5px;

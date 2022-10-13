@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <select>
+        <select :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
             <slot>
                 <option selected disabled value="none">none</option>
             </slot>
@@ -18,7 +18,9 @@
 
 <script setup>
 
-
+    const props = defineProps({
+        modelValue: String
+    })
 
 </script>
 

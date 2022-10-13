@@ -2,7 +2,7 @@
 
     <div class="inputWrapper">
         <label class="theme-transition" for="input">{{ labelValue }}</label>
-        <input name="input" :type="inputType">
+        <input name="input" :type="inputType" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
     </div>
 
 </template>
@@ -11,7 +11,8 @@
 
     const props = defineProps({
         labelValue: String,
-        inputType: String
+        inputType: String,
+        modelValue: String
     })
 
 </script>

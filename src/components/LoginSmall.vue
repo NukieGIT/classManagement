@@ -5,9 +5,7 @@
             <label class="theme-transition" for="user">Wybierz konto:</label>
             <Select v-model="loginDetails.user" name="user">
                 <option value="" seleceted hidden disabled>Wybierz konto</option>
-                <option value="uuid1">konto1</option>
-                <option value="uuid2">konto2</option>
-                <option value="uuid3">konto3</option>
+                <option v-for="user in users" :value="user.login">{{ user.login }}</option>
             </Select>
             <Input v-model="loginDetails.password" label-value="Hasło" input-type="password" />
             <button type="submit">Zaloguj</button>
@@ -18,7 +16,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Input from '../components/Input.vue';
     import Select from './Select.vue';
     import axios from "axios";
@@ -27,6 +25,7 @@
 
     const error = ref(false)
     const errorValue = ref(null)
+    const users = ref([])
 
     // function validate() {
     //     if ((loginDetails.value.user === "" || loginDetails.value.user === null || loginDetails.value.user === undefined)
@@ -39,29 +38,41 @@
 
     // }
 
-    function validateServerSide() {
-        const form = toFormData(loginDetails.value)
+    // onMounted(() => {
+    axios.get("http://localhost:5823/users")
+        .then(res => {
+            if (res.data.errors.error) {
+                error.value = true
+                errorValue.value = res.data.errors.errorMsg
+            } else {
+                users.value = res.data.data
+            }
+        })
+    // })
 
-        axios.post("http://localhost/classManagementServices/login.php", form)
+
+    function validateServerSide() {
+        axios.post("http://localhost:5823/signin", loginDetails.value)
             .then(res => {
                 if (res.data.error) {
                     error.value = true
                     errorValue.value = res.data.message
                 } else {
                     console.log(res.data.message)
+
                     loginDetails.value.user = loginDetails.value.password = ""
                 }
             })
 
     }
 
-    function toFormData(data) {
-        let formData = new FormData()
-        for (const key in data) {
-            formData.append(key, data[key])
-        }
-        return formData
-    }
+    // function toFormData(data) {
+    //     let formData = new FormData()
+    //     for (const key in data) {
+    //         formData.append(key, data[key])
+    //     }
+    //     return formData
+    // }
 
 
 </script>

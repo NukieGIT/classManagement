@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import LoginSmall from '../components/LoginSmall.vue';
+    import LoginSmall from '../components/LoginSmall.vue';
 
 </script>
 

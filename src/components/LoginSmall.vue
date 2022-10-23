@@ -2,8 +2,8 @@
 
         <form class="loginContainer" @submit.prevent="validateServerSide">
             <!-- <h2>&lt;USER NAME></h2> -->
-            <label class="theme-transition" for="user">Wybierz konto:</label>
-            <Select v-model="loginDetails.user" name="user">
+            <label class="theme-transition" for="login">Wybierz konto:</label>
+            <Select v-model="loginDetails.login" name="login">
                 <option value="" seleceted hidden disabled>Wybierz konto</option>
                 <option v-for="user in users" :value="user.login">{{ user.login }}</option>
             </Select>
@@ -16,58 +16,37 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Input from '../components/Input.vue';
     import Select from './Select.vue';
     import axios from "axios";
+    import router from '../router';
 
-    const loginDetails = ref({user: "", password: ""});
+    const loginDetails = ref({login: "", password: ""});
 
     const error = ref(false)
     const errorValue = ref(null)
     const users = ref([])
 
-    // function validate() {
-    //     if ((loginDetails.value.user === "" || loginDetails.value.user === null || loginDetails.value.user === undefined)
-    //     || (loginDetails.value.password === "" || loginDetails.value.password === null || loginDetails.value.password === undefined)) {
-    //         error.value = true
-    //         return;
-    //     }
-
-    //     validateServerSide()
-
-    // }
-
-    axios.get("http://localhost:5823/users")
-    .then(res => {
-        if (res.data.errors.error) {
-            error.value = true
-            errorValue.value = res.data.errors.errorMsg
-        } else {
-            users.value = res.data.data
-        }
+    onMounted(() => {
+        axios.get('http://localhost:5823/users')
+        .then(res => {
+            users.value = res.data.values
+        })
     })
 
-    function validateServerSide() {
-        axios.post("http://localhost:5823/signin", loginDetails.value)
-        .then(res => {
-            if (res.data.error) {
-                error.value = true
-                errorValue.value = res.data.message
-            } else {
-                console.log(res.data.data)
-            }
-            loginDetails.value.user = loginDetails.value.password = ""
-        })
+    async function validateServerSide() {
+        try {
+            const res = await axios.post('http://localhost:5823/signin', loginDetails.value)
+            console.log(res);
+            localStorage.setItem("token", res.data.values)
+            router.push("/dashboard")
+        } catch (err) {
+            error.value = true
+            errorValue.value = err.response.data.tooltip
+            console.warn(err.message)
+        }
     }
-
-    // function toFormData(data) {
-    //     let formData = new FormData()
-    //     for (const key in data) {
-    //         formData.append(key, data[key])
-    //     }
-    //     return formData
-    // }
 
 
 </script>

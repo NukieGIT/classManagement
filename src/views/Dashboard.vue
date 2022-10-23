@@ -1,11 +1,12 @@
 
 <template>
 
-    <p>Logged in</p>
+    <AddUser />
     
 </template>
 
 <script setup>
+    import AddUser from '../components/AddUser.vue';
 
 
 </script>

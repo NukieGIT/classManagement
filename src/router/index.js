@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
-import Dashboard from "@/views/Dashboard.vue";
 
 import auth from "../middleware/auth";
 
@@ -15,48 +14,27 @@ const router = createRouter({
         {
             path: "/dashboard",
             name: "Dashboard",
-            component: Dashboard,
+            component: () => import("../views/Dashboard.vue"),
             meta: {
-                middleware: auth
+                requiresAuth: true
             }
         }
     ],
 });
 
-function nextFactory(context, middleware, index) {
-    const subsequentMiddleware = middleware[index];
-    // If no subsequent Middleware exists,
-    // the default `next()` callback is returned.
-    if (!subsequentMiddleware) return context.next;
-
-    return (...parameters) => {
-        // Run the default Vue Router `next()` callback first.
-        context.next(...parameters);
-        // Then run the subsequent Middleware with a new
-        // `nextMiddleware()` callback.
-        const nextMiddleware = nextFactory(context, middleware, index);
-        subsequentMiddleware({ ...context, next: nextMiddleware });
-    };
-}
-
-router.beforeEach((to, from, next) => {
-    if (to.meta.middleware) {
-        const middleware = Array.isArray(to.meta.middleware)
-            ? to.meta.middleware
-            : [to.meta.middleware];
-
-        const context = {
-            from,
-            next,
-            router,
-            to,
-        };
-        const nextMiddleware = nextFactory(context, middleware, 1);
-
-        return middleware[0]({ ...context, next: nextMiddleware });
+router.beforeResolve(async (to, from) => {
+    const token = localStorage.getItem("token")
+    if (token === null && to.meta.requiresAuth) {
+        return "/"
+    } else if (!to.meta.requiresAuth) {
+        return true
+    } else if (token && to.meta.requiresAuth) {
+        if (await auth()) {
+            return true
+        } else {
+            return "/"
+        }
     }
-
-    return next();
-});
+})
 
 export default router;

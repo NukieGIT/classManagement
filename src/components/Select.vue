@@ -1,6 +1,7 @@
 <template>
 
-    <div>
+    <div class="inputWrapper">
+        <label class="theme-transition" for="input">{{ labelValue }}</label>
         <select :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
             <slot>
                 <option selected disabled value="none">none</option>
@@ -19,6 +20,7 @@
 <script setup>
 
     const props = defineProps({
+        labelValue: String,
         modelValue: String
     })
 
@@ -26,9 +28,16 @@
 
 <style scoped>
 
-    div {
+    .inputWrapper {
+        width: auto;
+        height: auto;
         display: flex;
         flex-direction: column;
+    }
+
+    label {
+        text-align: center;
+        color: var(--text)
     }
 
     select {

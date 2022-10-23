@@ -1,0 +1,35 @@
+GET http://localhost:5823/perms HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNWMzNjE0YzgtNTIxOC0xMWVkLThlYjktMGM5ZDkyODM4MTgyIiwibG9naW4iOiJhZG1pbiIsImlhdCI6MTY2NjU0MzU0MSwiZXhwIjoxNjY2NTQ3MTQxfQ.czgLJ30fNLGYB4i-L64W_lxbbuhu766Ubs_TDc3T0xY
+
+###
+
+GET http://localhost:5823/users HTTP/1.1
+
+###
+
+GET http://localhost:5823/verifyToken HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNWMzNjE0YzgtNTIxOC0xMWVkLThlYjktMGM5ZDkyODM4MTgyIiwibG9naW4iOiJhZG1pbiIsImlhdCI6MTY2NjU0MzU0MSwiZXhwIjoxNjY2NTQ3MTQxfQ.czgLJ30fNLGYB4i-L64W_lxbbuhu766Ubs_TDc3T0xY
+
+###
+
+GET http://localhost:5823/users HTTP/1.1
+
+###
+
+POST http://localhost:5823/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "login": "admin",
+    "password": "admin1"
+}
+
+###
+
+POST http://localhost:5823/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    
+}

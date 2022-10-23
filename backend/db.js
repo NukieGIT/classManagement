@@ -8,7 +8,8 @@ const pool =
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        connectionLimit: process.env.DB_CONN_LIMIT
+        connectionLimit: process.env.DB_CONN_LIMIT,
+        multipleStatements: true
     });
 
 module.exports = Object.freeze({

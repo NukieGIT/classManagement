@@ -3,6 +3,10 @@
     <form class="loginContainer" @submit.prevent="validateServerSide">
         <Input v-model="loginDetails.login" label-value="Login" input-type="text" />
         <Input v-model="loginDetails.password" label-value="Hasło" input-type="password" />
+        <!-- <Input v-model="loginDetails.perms" label-value="Permisje" input-type="" /> -->
+        <Select v-model="loginDetails.perms" label-value="Permisje">
+            <option v-for="perm in perms" :value="perm">{{ perm }}</option>
+        </Select>
         <Input v-model="loginDetails.fname" label-value="Imie" input-type="text" />
         <Input v-model="loginDetails.lname" label-value="Nazwisko" input-type="text" />
         <button type="submit">Dodaj</button>
@@ -13,29 +17,40 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Input from '../components/Input.vue';
-import axios from "axios";
+    import { onMounted, ref } from 'vue';
+    import Input from '../components/Input.vue';
+    import axios from "axios";
+    import Select from './Select.vue';
+    import authHeaderToken from "../services/authHeaderToken.js";
 
-const loginDetails = ref({login: "", password: "", fname: "", lname: ""});
+    const loginDetails = ref({login: "", password: "", perms: "", fname: "", lname: ""});
 
-const error = ref(false)
-const errorValue = ref(null)
+    const error = ref(false)
+    const errorValue = ref(null)
+    const perms = ref([])
 
-function validateServerSide() {
-    axios.post("http://localhost:5823/signup", loginDetails.value)
-    .then(res => {
-        if (res.data.errors.error) {
-            error.value = true
-            errorValue.value = res.data.errors.errorMsg
-        } else {
-            console.log(res.data.data)
+    onMounted(async () => {
+        try {
+            const res = await axios.get('http://localhost:5823/perms', authHeaderToken())
+            perms.value = res.data.values
+
+        } catch (err) {
+            // error.value = true
+            // errorValue.value = err.message
         }
-
-        loginDetails.value.login = loginDetails.value.password = loginDetails.value.fname = loginDetails.value.lname = ""
     })
-}
 
+    async function validateServerSide() {
+        // TODO user addition validation
+        try {
+            const res = await axios.post('http://localhost:5823/signup', loginDetails.value, authHeaderToken())
+            console.log(res.data);
+            
+        } catch (err) {
+            error.value = true
+            errorValue.value = err.response.data.tooltip
+        }
+    }
 
 </script>
 

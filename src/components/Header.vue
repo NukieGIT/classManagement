@@ -1,14 +1,16 @@
 <template>
 
     <header class="theme-transition">
+        <HeaderOptions v-if="useLoginState().$state.isAuth" />
         <ThemeSwitch />
     </header>
 
 </template>
 
 <script setup>
-import ThemeSwitch from './ThemeSwitch.vue';
-
+    import { useLoginState } from '../stores/loginState';
+    import HeaderOptions from './HeaderOptions.vue';
+    import ThemeSwitch from './ThemeSwitch.vue';
 
 
 </script>
@@ -28,6 +30,7 @@ import ThemeSwitch from './ThemeSwitch.vue';
 
 <script>
     export default {
-        inheritAttrs: false
-    }
+    inheritAttrs: false,
+    components: { HeaderOptions }
+}
 </script>

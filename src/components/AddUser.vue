@@ -41,7 +41,6 @@
     })
 
     async function validateServerSide() {
-        // TODO user addition validation
         try {
             const res = await axios.post('http://localhost:5823/signup', loginDetails.value, authHeaderToken())
             console.log(res.data);

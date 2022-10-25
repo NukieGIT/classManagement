@@ -226,9 +226,10 @@ async function verifyJWT(req, res, next) {
 
     const token = authHeader.split(" ")[1]
 
-    const decoded = jwt.verify(token, process.env.JWT_TOKEN_KEY, async (err, user) => {
+    jwt.verify(token, process.env.JWT_TOKEN_KEY, async (err, user) => {
         if (err) {
             response.errors = err
+            response.tooltip = true
             console.log(err);
             res.status(403)
             res.send(response)

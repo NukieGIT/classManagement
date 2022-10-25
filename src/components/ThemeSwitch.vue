@@ -6,6 +6,14 @@
     </select>
 </template>
 
+<script>
+
+    export default {
+        inheritAttrs: false
+    }
+
+</script>
+
 <script setup>
     import { onMounted, ref, watch } from 'vue';
 

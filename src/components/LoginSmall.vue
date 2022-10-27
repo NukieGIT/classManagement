@@ -48,7 +48,7 @@ async function validateServerSide() {
         const res = await axios.post('http://localhost:5823/signin', loginDetails.value)
         console.log(res);
         localStorage.setItem("token", res.data.values)
-        router.push("/dashboard")
+        router.push("/")
     } catch (err) {
         error.value = true
         errorValue.value = err.response.data.tooltip

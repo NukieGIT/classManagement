@@ -1,9 +1,10 @@
 <template>
-    <select v-model="theme" ref="select" class="theme-transition">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="radzio">Radzio</option>
-    </select>
+    <div>
+        <select v-model="theme" ref="select" class="theme-transition">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
 </template>
 
 <script>
@@ -46,7 +47,6 @@
     select {
         border-radius: 0.5rem;
         color: var(--text);
-        margin: 50px;
         width: 150px;
         padding: 5px 35px 5px 5px;
         font-size: 16px;
@@ -55,7 +55,7 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background: url(favicon.ico) 96% / 15% no-repeat var(--bg-secondary);
+        background: url(favicon.ico) 96% / 15% no-repeat var(--bg);
     }
 
 </style>

@@ -1,17 +1,65 @@
 <template>
 
-    <RouterLink to="/dashboard/rooms">Rooms</RouterLink>
+    <div class="theme-transition">
+        <RouterLink class="headerRoute theme-transition" to="/rooms">Rooms</RouterLink>
+        <RouterLink class="headerRoute theme-transition" to="/users">Users</RouterLink>
+    </div>
 
 </template>
-
-<style scoped>
-
-
-
-</style>
 
 <script setup>
 
 
 
 </script>
+
+<style scoped>
+
+.router-link-exact-active {
+    background-color: var(--bg);
+}
+
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 40px;
+    width: 100%;
+}
+
+.headerRoute {
+    border-radius: 10px;
+    padding: 2%;
+    position: relative;
+    text-decoration: none;
+    color: var(--text-accent);
+    z-index: 1;
+}
+
+.headerRoute::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent-v2-color);
+    background-color: initial;
+    transform: scale(2);
+    border-radius: 5px;
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s, background-color 0.7s, border-radius 0.3s;
+}
+
+.headerRoute:hover::before {
+    background-color: var(--bg);
+    border-radius: 10px;
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+</style>
+

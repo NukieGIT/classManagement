@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "@/views/Login.vue";
+import Dashboard from "@/views/Dashboard.vue";
 
 import auth from "../middleware/auth";
 import { useLoginState } from "../stores/loginState";
@@ -9,21 +9,29 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            name: "Login",
-            component: Login
-        },
-        {
-            path: "/dashboard",
             name: "Dashboard",
-            component: () => import("../views/Dashboard.vue"),
+            component: Dashboard,
             meta: {
                 requiresAuth: true
             }
         },
         {
-            path: "/dashboard/rooms",
+            path: "/login",
+            name: "Login",
+            component: () => import("../views/Login.vue")
+        },
+        {
+            path: "/rooms",
             name: "Rooms",
             component: () => import("../views/Rooms.vue"),
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/users",
+            name: "Users",
+            component: () => import("../views/Users.vue"),
             meta: {
                 requiresAuth: true
             }
@@ -34,7 +42,7 @@ const router = createRouter({
 router.beforeResolve(async (to, from) => {
     const token = localStorage.getItem("token")
     if (token === null && to.meta.requiresAuth) {
-        return "/"
+        return "/login"
     } else if (!to.meta.requiresAuth) {
         return true
     } else if (token && to.meta.requiresAuth) {
@@ -43,7 +51,7 @@ router.beforeResolve(async (to, from) => {
             return true
         } else {
             useLoginState().$state.isAuth = false
-            return "/"
+            return "/login"
         }
     }
 })

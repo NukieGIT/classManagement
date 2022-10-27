@@ -1,36 +1,38 @@
 :root {
-    --purple-100: rgb(233, 219, 255);
-    --purple-200: rgb(205, 174, 255);
-    --purple-300: rgb(174, 133, 241);
-    --purple-400: rgb(70, 9, 168);
-    --purple-800: rgb(11, 0, 29);
-    --purple-900: rgb(7, 0, 19);
 
-    /* RADIO STILES */
+    --main-color: #453f4d;
+    --main-v2-color: #383341;
+    --main-v3-color: #29242e;
+
+    --secondary-color: #978fa5;
+    --secondary-v2-color: #AFA8BA;
+    --secondary-v3-color: #c3bccc;
+
+
+    --accent-color: #CAAAFF;
+    --accent-v2-color: #ddcafa;
+
     
-    --purple-101:rgb(24,12,200);
-    --purple-102:rgb(200,80,0);
-    --purple-152:rgb(14, 9, 89);
-    --prRUple-69:rgb(108, 43, 0);
+    --text-main-light-color: #d1d1d1;
+    --text-main-dark-color: #302d35;
+
+    --text-secondary-light-color: #a3a0a0;
+    --text-secondary-dark-color: #4e485a;
+
 }
 
 .light {
-    --bg: var(--purple-100);
-    --bg-nav: var(--purple-200);
-    --text: var(--purple-900);
-    --bg-secondary: var(--purple-300);
+    --bg: var(--secondary-v2-color);
+    --bg-nav: var(--secondary-color);
+    --text: var(--text-main-dark-color);
+    --text-accent: var(--text-secondary-dark-color);
+    --bg-secondary: var(--secondary-v3-color);
 }
 
 .dark {
-    --bg: var(--purple-800);
-    --bg-nav: var(--purple-900);
-    --text: var(--purple-200);
-    --bg-secondary: var(--purple-400);
-}
-
-.radzio {
-    --bg: var(--prRUple-69);
-    --bg-nav: var(--purple-152);
-    --text: var(--purple-102);
-    --bg-secondary: var(--purple-101);
+    --bg: var(--main-v2-color);
+    --bg-nav: var(--main-color);
+    --text: var(--text-main-light-color);
+    --text-accent: var(--text-secondary-light-color);
+    --bg-secondary: var(--main-v3-color);
 }

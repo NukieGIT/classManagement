@@ -1,8 +1,12 @@
 <template>
 
+    <RoomSelector />
+
 </template>
 
 <script setup>
+    import RoomSelector from '../components/roomSelector.vue';
+
 
 
 

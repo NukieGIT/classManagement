@@ -39,6 +39,7 @@ div {
 
 .headerRoute::before {
     content: "";
+    pointer-events: none;
     position: absolute;
     z-index: -1;
     top: 0;

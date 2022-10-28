@@ -55,7 +55,7 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background: url(favicon.ico) 96% / 15% no-repeat var(--bg);
+        background: url(../../public/favicon.ico) 96% / 15% no-repeat var(--bg);
     }
 
 </style>

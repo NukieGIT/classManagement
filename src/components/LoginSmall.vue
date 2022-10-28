@@ -10,18 +10,17 @@
         <Input v-model="loginDetails.password" label-value="Hasło" input-type="password" />
         <button type="submit">Zaloguj</button>
         <p v-if="error">{{ errorValue }}</p>
-        {{ loginDetails }}
     </form>
 
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import Input from '../components/Input.vue';
+import Input from '@/components/Input.vue';
 import Select from './Select.vue';
 import axios from "axios";
-import router from '../router';
-import { useLoginState } from '../stores/loginState';
+import router from '@/router';
+import { useLoginState } from '@/stores/loginState';
 
 const loginState = useLoginState()
 

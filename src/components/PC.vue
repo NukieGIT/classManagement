@@ -1,17 +1,14 @@
 <template>
 
-    <AddUser />
+<!-- TODO HISTORY AND MANAGEMENT -->
 
 </template>
 
 <script setup>
-    import AddUser from '@/components/AddUser.vue';
-
 
 
 
 </script>
-
 
 <style scoped>
 

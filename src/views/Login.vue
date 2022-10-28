@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-    import LoginSmall from '../components/LoginSmall.vue';
+    import LoginSmall from '@/components/LoginSmall.vue';
 
 </script>
 
@@ -31,8 +31,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40%;
-        height: 20%;
+        max-width: 25%;
+        min-width: 400px;
+        height: 200px;
         background-color: var(--bg-secondary);
     }
 

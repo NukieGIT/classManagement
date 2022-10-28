@@ -11,17 +11,16 @@
         <Input v-model="loginDetails.lname" label-value="Nazwisko" input-type="text" />
         <button type="submit">Dodaj</button>
         <p v-if="error">{{ errorValue }}</p>
-        {{ loginDetails }}
     </form>
 
 </template>
 
 <script setup>
     import { onMounted, ref } from 'vue';
-    import Input from '../components/Input.vue';
+    import Input from '@/components/Input.vue';
     import axios from "axios";
     import Select from './Select.vue';
-    import authHeaderToken from "../services/authHeaderToken.js";
+    import authHeaderToken from "@/services/authHeaderToken.js";
 
     const loginDetails = ref({login: "", password: "", perms: "", fname: "", lname: ""});
 

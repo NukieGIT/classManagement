@@ -89,7 +89,7 @@ app.post('/signin', async (req, res) => {
     }
 })
 
-app.get('/perms', [verifyJWT, checkPerms(["admin"])], async (req, res) => {
+app.get('/perms', [verifyJWT, checkPerms("admin")], async (req, res) => {
     let conn
     const response = new Response()
     const user = req.user
@@ -153,6 +153,60 @@ app.post('/signup', [verifyJWT, checkPerms(["admin", "Head Teacher"])], async (r
 
 })
 
+app.get('/rooms', verifyJWT, async (req, res) => {
+    let conn
+    const response = new Response()
+    try {
+        conn = await db.pool.getConnection()
+        const query =
+        `SELECT rooms.room_num, COUNT(pcs.id) AS pc_count
+        FROM rooms
+        LEFT JOIN pcs
+        ON rooms.uuid=pcs.room_uuid
+        GROUP BY rooms.room_num
+        ORDER BY COUNT(pcs.id) DESC`
+        const result = await conn.query(query)
+
+        response.values = toJson(result)
+    } catch (err) {
+        res.status(500)
+        response.errors = err
+    } finally {
+        if (conn) {
+            conn.release()
+        }
+        res.send(response)
+    }
+})
+
+
+app.get('/pcs', verifyJWT, async (req, res) => {
+    let conn
+    const response = new Response()
+    try {
+        conn = await db.pool.getConnection()
+        const query =
+        `SELECT pcs.room_pos, pcs.uuid
+        FROM pcs
+        INNER JOIN rooms
+        ON rooms.uuid=pcs.room_uuid
+        WHERE rooms.room_num=${req.query.room}
+        ORDER BY pcs.id ASC`
+        const result = await conn.query(query)
+
+        response.values = result
+    } catch (err) {
+        res.status(500)
+        response.errors = err
+        console.log(err);
+    } finally {
+        if (conn) {
+            conn.release()
+        }
+        res.send(response)
+    }
+})
+
 app.get('/verifyToken', verifyJWT, async (req, res) => {
     res.send(req.user)
 })
@@ -161,6 +215,7 @@ app.get('/verifyToken', verifyJWT, async (req, res) => {
 
 function checkPerms(reqPerms = ["teacher"]) {
     return async (req, res, next) => {
+        if (!Array.isArray(reqPerms)) reqPerms = [reqPerms]
         const response = new Response()
         const user = req.user
 
@@ -238,6 +293,13 @@ async function verifyJWT(req, res, next) {
         req.user = user
         next()
     })
+}
+
+function toJson(data) {
+    if (data !== undefined) {
+        return JSON.stringify(data, (_, v) => typeof v === 'bigint' ? `${v}#bigint` : v)
+            .replace(/"(-?\d+)#bigint"/g, (_, a) => a);
+    }
 }
 
 

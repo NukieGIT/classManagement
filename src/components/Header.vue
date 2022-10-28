@@ -2,7 +2,11 @@
 
     <header class="theme-transition">
         <div class="split split1">
-            <p class="theme-transition">{{ $route.name }}</p>
+            <p class="theme-transition">
+                {{ $route.name }}
+                <span v-if="$route.name == 'Room'">{{ useCurrentRoomPath().$state.currentRoom }}</span>
+                <span v-if="$route.name == 'PC'">{{ useCurrentRoomPath().$state.currentPC }}</span>
+            </p>
         </div>
         <div class="split split2">
             <HeaderOptions class="headerOptions" v-if="useLoginState().$state.isAuth" />
@@ -15,10 +19,10 @@
 </template>
 
 <script setup>
-    import { useLoginState } from '../stores/loginState';
+    import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
+    import { useLoginState } from '@/stores/loginState';
     import HeaderOptions from './HeaderOptions.vue';
     import ThemeSwitch from './ThemeSwitch.vue';
-
 
 </script>
 
@@ -31,6 +35,8 @@
         height: var(--header-height);
         background-color: var(--bg-nav);
         width: 100%;
+        position: sticky;
+        top: 0;
     }
 
     .split {

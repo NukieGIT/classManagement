@@ -18,12 +18,27 @@ const router = createRouter({
         {
             path: "/login",
             name: "Login",
-            component: () => import("../views/Login.vue")
+            component: () => import("@/views/Login.vue")
         },
         {
             path: "/rooms",
             name: "Rooms",
-            component: () => import("../views/Rooms.vue"),
+            component: () => import("@/views/Rooms.vue"),
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/rooms/:room",
+            name: "Room",
+            component: () => import("@/views/Room.vue"),
+            // props: (route) => {
+            //     const room = Number.parseInt(route.params.room, 10)
+            //     if (Number.isNaN(id)) {
+            //         return 0
+            //       }
+            //       return { id }
+            // },
             meta: {
                 requiresAuth: true
             }
@@ -31,7 +46,7 @@ const router = createRouter({
         {
             path: "/users",
             name: "Users",
-            component: () => import("../views/Users.vue"),
+            component: () => import("@/views/Users.vue"),
             meta: {
                 requiresAuth: true
             }

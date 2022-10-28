@@ -48,7 +48,7 @@ div {
     height: 100%;
     border: 2px solid var(--accent-v2-color);
     background-color: initial;
-    transform: scale(2);
+    transform: scale(1.3);
     border-radius: 5px;
     opacity: 0;
     transition: transform 0.5s, opacity 0.5s, background-color 0.7s, border-radius 0.3s;

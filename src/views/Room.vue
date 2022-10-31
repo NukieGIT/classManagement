@@ -19,7 +19,7 @@
     .container {
         display: grid;
         place-items: center;
-        padding-top: 20px;
+        padding: 20px;
         width: 100%;
         height: calc(100vh - var(--header-height));
     }

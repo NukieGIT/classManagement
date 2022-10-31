@@ -15,7 +15,7 @@
 
 <style scoped>
 
-.router-link-exact-active {
+.router-link-active {
     background-color: var(--bg);
 }
 

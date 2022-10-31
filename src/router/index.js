@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouterView } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 
 import auth from "../middleware/auth";
 import { useLoginState } from "../stores/loginState";
+import { h } from "vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,27 +23,38 @@ const router = createRouter({
         },
         {
             path: "/rooms",
-            name: "Rooms",
-            component: () => import("@/views/Rooms.vue"),
+            alias: ["/classrooms"],
+            component: { render: () => h(RouterView) },
+            children: [
+                {
+                    path: "",
+                    name: "Rooms",
+                    component: () => import("@/views/Rooms.vue"),
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: ":room",
+                    name: "Room",
+                    component: () => import("@/views/Room.vue"),
+                    meta: {
+                        requiresAuth: true
+                    }
+                }
+            ],
             meta: {
                 requiresAuth: true
             }
         },
-        {
-            path: "/rooms/:room",
-            name: "Room",
-            component: () => import("@/views/Room.vue"),
-            // props: (route) => {
-            //     const room = Number.parseInt(route.params.room, 10)
-            //     if (Number.isNaN(id)) {
-            //         return 0
-            //       }
-            //       return { id }
-            // },
-            meta: {
-                requiresAuth: true
-            }
-        },
+        // {
+        //     path: "/rooms/:room",
+        //     name: "Room",
+        //     component: () => import("@/views/Room.vue"),
+        //     meta: {
+        //         requiresAuth: true
+        //     }
+        // },
         {
             path: "/users",
             name: "Users",

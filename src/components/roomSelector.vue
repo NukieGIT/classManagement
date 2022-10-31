@@ -1,7 +1,7 @@
 <template>
 
-    <div class="wrapper theme-transition">
-        <router-link v-for="room in rooms" :to="`rooms/${room.room_num}`" tag="div" class="room theme-transition">s{{ room.room_num }}<br />Ilość PC: {{ room.pc_count }}</router-link>
+    <div class="wrapper custom-scroll theme-transition">
+        <router-link v-for="room in rooms" :to="`rooms/${room.room_num}`" tag="div" class="room hover theme-transition">s{{ room.room_num }}<br />Ilość PC: {{ room.pc_count }}</router-link>
     </div>
 
 </template>
@@ -17,31 +17,11 @@
         overflow-y: auto;
     }
 
-    .wrapper::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    .wrapper::-webkit-scrollbar-track {
-        background-color: var(--bg-nav);
-    }
-
-    .wrapper::-webkit-scrollbar-thumb {
-        background-color: rgb(101, 90, 107);
-        border-radius: 500px;
-    }
-
     .room {
         background-color: var(--bg-secondary);
         color: var(--text);
         flex: 0 0 85px;
-    }
-
-    .room:hover {
-        cursor: pointer;
-        filter: brightness(1.1);
-        -webkit-box-shadow: 0px 5px 8px -5px black;
-        -moz-box-shadow: 0px 5px 8px -5px black;
-        box-shadow: 0px 5px 8px -5px black;
+        transition: filter 0.3s, box-shadow 0.3s;
     }
 
 </style>

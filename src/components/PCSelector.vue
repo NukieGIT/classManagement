@@ -15,7 +15,7 @@
                             <th>Data</th>
                             <th>Godzina</th>
                         </tr>
-                        <tr v-for="(item, index) in JSON.parse(pc.condition)">
+                        <tr v-for="(item, index) in JSON.parse(pc.condition)" :class="`status-${JSON.parse(pc.condition)[index]}`">
                             <td>{{ JSON.parse(pc.desc)[index] }}</td>
                             <td>{{ JSON.parse(pc.date)[index] }}</td>
                             <td>{{ TimeTable.getClassID(JSON.parse(pc.hour)[index]) }}</td>
@@ -103,6 +103,18 @@
 
     .info-p {
         color: var(--text);
+    }
+
+    .status-fixed {
+        box-shadow: inset 0 0 0 100vw var(--repaired-accent);;
+    }
+
+    .status-damaged {
+        box-shadow: inset 0 0 0 100vw var(--slightly-damaged-accent);
+    }
+
+    .status-broken {
+        box-shadow: inset 0 0 0 100vw var(--severly-damaged-accent);
     }
 
 

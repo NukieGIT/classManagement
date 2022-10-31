@@ -27,6 +27,10 @@
     --text: var(--text-main-dark-color);
     --text-accent: var(--text-secondary-dark-color);
     --bg-secondary: var(--secondary-v3-color);
+    
+    --repaired-accent: rgba(72, 255, 0, 0.3);
+    --slightly-damaged-accent: rgba(255, 123, 0, 0.3);
+    --severly-damaged-accent: rgba(255, 0, 0, 0.3);
 }
 
 .dark {
@@ -35,4 +39,8 @@
     --text: var(--text-main-light-color);
     --text-accent: var(--text-secondary-light-color);
     --bg-secondary: var(--main-v3-color);
+    
+    --repaired-accent: rgba(72, 255, 0, 0.3);
+    --slightly-damaged-accent: rgba(255, 123, 0, 0.3);
+    --severly-damaged-accent: rgba(255, 0, 0, 0.3);
 }

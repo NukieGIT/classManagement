@@ -106,15 +106,18 @@
     }
 
     .status-fixed {
-        box-shadow: inset 0 0 0 100vw var(--repaired-accent);;
+        color: var(--repaired-accent);
+        /* box-shadow: inset 0 0 0 100vw var(--repaired-accent); */
     }
 
     .status-damaged {
-        box-shadow: inset 0 0 0 100vw var(--slightly-damaged-accent);
+        color: var(--slightly-damaged-accent);
+        /* box-shadow: inset 0 0 0 100vw var(--slightly-damaged-accent); */
     }
 
     .status-broken {
-        box-shadow: inset 0 0 0 100vw var(--severly-damaged-accent);
+        color: var(--severly-damaged-accent);
+        /* box-shadow: inset 0 0 0 100vw var(--severly-damaged-accent); */
     }
 
 

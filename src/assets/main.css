@@ -44,3 +44,18 @@ body {
     background-color: rgb(101, 90, 107);
     border-radius: 500px;
 }
+
+.status-fixed {
+    color: var(--repaired-accent);
+    /* box-shadow: inset 0 0 0 100vw var(--repaired-accent); */
+}
+
+.status-damaged {
+    color: var(--slightly-damaged-accent);
+    /* box-shadow: inset 0 0 0 100vw var(--slightly-damaged-accent); */
+}
+
+.status-broken {
+    color: var(--severly-damaged-accent);
+    /* box-shadow: inset 0 0 0 100vw var(--severly-damaged-accent); */
+}

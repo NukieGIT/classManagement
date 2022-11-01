@@ -1,27 +1,27 @@
 <template>
 
-<!-- TODO CLICKABLE -->
     <div class="wrapper">
         <div v-for="pc in pcs" :data-pc="pc.uuid" class="pc hover theme-transition">
-            <PC>
+            <PC :show-label="true" :show-info="true">
                 <template #info>
                     <p class="info-p theme-transition">Numer Komputera: {{ pc.room_pos }}</p>
-                    <button>Dodaj Stan</button>
+                    <RouterLink class="add-button theme-transition" to="">Dodaj stan</RouterLink>
                 </template>
                 <template #history v-if="pc.exists">
                     <table class="table theme-transition">
                         <tr>
                             <th>Opis</th>
-                            <th>Data</th>
                             <th>Godzina</th>
+                            <th>Data</th>
                         </tr>
                         <tr v-for="(item, index) in JSON.parse(pc.condition)" :class="`status-${JSON.parse(pc.condition)[index]}`">
                             <td>{{ JSON.parse(pc.desc)[index] }}</td>
-                            <td>{{ JSON.parse(pc.date)[index] }}</td>
                             <td>{{ TimeTable.getClassID(JSON.parse(pc.hour)[index]) }}</td>
+                            <td>{{ JSON.parse(pc.date)[index] }}</td>
                         </tr>
                     </table>
-                    <button class="hist-btn">Pokaż Więcej</button>
+                    <!-- <button class="hist-btn">Pokaż Więcej</button> -->
+                    <div class="hist-btn theme-transition" @click="handleHistClick(pc.uuid, pc.room_pos)" :to="`${useCurrentRoomPath().$state.currentRoom}/${pc.uuid}`">Pokaż Więcej</div>
                 </template>
             </PC>
         </div>
@@ -37,6 +37,7 @@
     import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
     import PC from "@/components/PC.vue";
     import TimeTable from '../services/TimeTable/TimeTableService';
+import router from '../router';
 
     const pcs = ref([])
     
@@ -56,13 +57,15 @@
         }
     })
 
+    function handleHistClick(uuid, pos) {
+        // console.log(uuid, pos);
+        useCurrentRoomPath().$state.currentPC = pos
+        router.push(`${useCurrentRoomPath().$state.currentRoom}/${uuid}`)
+    }
+
 </script>
 
 <style scoped>
-
-    button {
-        cursor: pointer;
-    }
 
     .wrapper {
         width: 100%;
@@ -88,6 +91,8 @@
     }
 
     .table {
+        min-width: 400px;
+        overflow-x: auto;
         text-align: center;
         color: var(--text);
         width: 100%;
@@ -96,28 +101,37 @@
         border-collapse: collapse;
     }
 
+    .add-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 50%;
+        text-decoration: none;
+        color: var(--text);
+        background-color: var(--bg-nav);
+    }
+
+    .add-button:hover {
+        text-decoration: underline;
+    }
+
     .hist-btn {
         height: 15%;
         width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .hist-btn:hover {
+        text-decoration: underline;
     }
 
     .info-p {
         color: var(--text);
-    }
-
-    .status-fixed {
-        color: var(--repaired-accent);
-        /* box-shadow: inset 0 0 0 100vw var(--repaired-accent); */
-    }
-
-    .status-damaged {
-        color: var(--slightly-damaged-accent);
-        /* box-shadow: inset 0 0 0 100vw var(--slightly-damaged-accent); */
-    }
-
-    .status-broken {
-        color: var(--severly-damaged-accent);
-        /* box-shadow: inset 0 0 0 100vw var(--severly-damaged-accent); */
     }
 
 

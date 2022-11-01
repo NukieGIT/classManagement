@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper custom-scroll theme-transition">
-        <router-link v-for="room in rooms" :to="`rooms/${room.room_num}`" tag="div" class="room hover theme-transition">s{{ room.room_num }}<br />Ilość PC: {{ room.pc_count }}</router-link>
+        <router-link v-for="room in rooms" :to="`rooms/${room.room_num}`" class="room hover theme-transition">s{{ room.room_num }}<br />Ilość PC: {{ room.pc_count }}</router-link>
     </div>
 
 </template>
@@ -22,6 +22,8 @@
         color: var(--text);
         flex: 0 0 85px;
         transition: filter 0.3s, box-shadow 0.3s;
+        text-decoration: none;
+        transition: filter 0.3s, box-shadow 0.3s, background-color 500ms ease-in-out, color 1000ms ease-in-out;
     }
 
 </style>

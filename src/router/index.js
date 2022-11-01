@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 
+import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
+
 import auth from "../middleware/auth";
 import { useLoginState } from "../stores/loginState";
 import { h } from "vue";
@@ -38,6 +40,14 @@ const router = createRouter({
                     path: ":room",
                     name: "Room",
                     component: () => import("@/views/Room.vue"),
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: ":room/:pc",
+                    name: "PC",
+                    component: () => import("@/views/PCFull.vue"),
                     meta: {
                         requiresAuth: true
                     }

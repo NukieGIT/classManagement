@@ -34,6 +34,7 @@
     const states = ref()
 
     onMounted(async () => {
+        useCurrentRoomPath().$state.currentPC = "-"
         try {
             const res = await axios.get(`http://localhost:5823/pcs/${useRoute().params.pc}`, {
                 params: {

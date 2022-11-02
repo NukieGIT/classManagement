@@ -12,6 +12,7 @@ const signin = require('./routes/signin')
 const signup = require('./routes/signup')
 const getPerms = require('./routes/perms')
 const getRooms = require('./routes/rooms')
+const getTimeTable = require('./routes/getTimeTable')
 
 const verifyJWT = require('./middleware/verifyJWT')
 const checkPerms = require('./middleware/permsCheck')
@@ -39,12 +40,13 @@ app.post('/signup', [verifyJWT, checkPerms(["admin", "Head Teacher"])], signup)
 
 app.get('/rooms', verifyJWT, getRooms)
 
-
 app.get('/pcs', verifyJWT, getPcs)
 
 app.get('/pcs/:pc', verifyJWT, getPcInfo)
 
 app.get('/verifyToken', verifyJWT, verifyToken)
 
+
+app.get('/timetable', getTimeTable)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

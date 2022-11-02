@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper">
-        <div v-for="pc in pcs" :data-pc="pc.uuid" class="pc hover theme-transition">
+        <div v-for="pc in pcs" class="pc hover theme-transition">
             <PC :show-label="true" :show-info="true">
                 <template #info>
                     <p class="info-p theme-transition">Numer Komputera: {{ pc.room_pos }}</p>

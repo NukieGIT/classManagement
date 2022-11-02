@@ -1,4 +1,7 @@
-import timetable from "@/services/TimeTable/Timetable.json";
+import axios from "axios";
+
+let timetable
+axios.get('http://localhost:5823/timetable').then(res => timetable = res.data)
 
 export default class TimeTable {
     static getClassID(time) {

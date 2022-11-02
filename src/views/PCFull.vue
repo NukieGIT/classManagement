@@ -41,6 +41,7 @@
                 },
                 ...authHeaderToken()
             })
+            useCurrentRoomPath().$state.currentPC = res.data.values[0].room_pos
             states.value = res.data.values
         } catch (err) {
             console.log(err);
@@ -64,11 +65,21 @@
 
     .table th {
         border-bottom: 1px solid var(--bg-secondary);
-        height: 15%;
+        height: 50px;
+    }
+
+    .table td {
+        padding: 10px;
+        word-wrap: break-word;
     }
 
     .table tr > td:not(:last-child) {
         border-right: 1px solid var(--bg-secondary);
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        width: 50%;
     }
 
     .table-container {
@@ -78,10 +89,11 @@
     }
 
     .table {
+        table-layout: fixed;
         text-align: center;
         color: var(--text);
         width: 100%;
-        min-height: 30%;
+        min-height: 250px;
         background-color: var(--bg-nav);
         border-collapse: collapse;
     }

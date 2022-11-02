@@ -21,7 +21,7 @@
                         </tr>
                     </table>
                     <!-- <button class="hist-btn">Pokaż Więcej</button> -->
-                    <div class="hist-btn theme-transition" @click="handleHistClick(pc.uuid, pc.room_pos)" :to="`${useCurrentRoomPath().$state.currentRoom}/${pc.uuid}`">Pokaż Więcej</div>
+                    <RouterLink class="hist-btn theme-transition" :to="`${useCurrentRoomPath().$state.currentRoom}/${pc.uuid}`">Pokaż Więcej</RouterLink>
                 </template>
             </PC>
         </div>
@@ -37,7 +37,6 @@
     import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
     import PC from "@/components/PC.vue";
     import TimeTable from '../services/TimeTable/TimeTableService';
-import router from '../router';
 
     const pcs = ref([])
     
@@ -56,12 +55,6 @@ import router from '../router';
             console.log(err);
         }
     })
-
-    function handleHistClick(uuid, pos) {
-        // console.log(uuid, pos);
-        useCurrentRoomPath().$state.currentPC = pos
-        router.push(`${useCurrentRoomPath().$state.currentRoom}/${uuid}`)
-    }
 
 </script>
 

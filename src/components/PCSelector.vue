@@ -1,5 +1,6 @@
 <template>
 
+    <h1 v-if="!doExist">BRAK KOMPUTERÓW</h1>
     <div class="wrapper">
         <div v-for="pc in pcs" class="pc hover theme-transition">
             <PC :show-label="true" :show-info="true">
@@ -36,9 +37,10 @@
     import authHeaderToken from '@/services/authHeaderToken';
     import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
     import PC from "@/components/PC.vue";
-    import TimeTable from '../services/TimeTable/TimeTableService';
+    import TimeTable from '../services/TimeTableService';
 
     const pcs = ref([])
+    const doExist = ref(true)
     
     onMounted(async () => {
         useCurrentRoomPath().$state.currentRoom = useRoute().params.room
@@ -50,6 +52,9 @@
                 },
                 ...authHeaderToken()
             })
+            if (!(res.data && res.data.values.length > 0)) {
+                doExist.value = false
+            }
             pcs.value = res.data.values
         } catch (err) {
             console.log(err);
@@ -83,7 +88,13 @@
         border-right: 1px solid var(--bg-secondary);
     }
 
+    .table th:last-child,
+    .table td:last-child {
+        width: 10ch;
+    }
+
     .table {
+        table-layout: fixed;
         min-width: 400px;
         overflow-x: auto;
         text-align: center;

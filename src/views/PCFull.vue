@@ -29,7 +29,7 @@
     import { useRoute } from 'vue-router';
     import axios from 'axios';
     import authHeaderToken from '../services/authHeaderToken';
-    import TimeTable from "../services/TimeTable/TimeTableService";
+    import TimeTable from "../services/TimeTableService";
 
     const states = ref()
 

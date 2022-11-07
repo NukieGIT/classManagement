@@ -16,7 +16,7 @@ const getRooms = async (req, res) => {
         ORDER BY COUNT(pcs.id) DESC`
         const result = await conn.query(query)
 
-        response.values = Utils.toJsonBigInt(result)
+        response.values = Utils.bigIntToJson(result)
     } catch (err) {
         res.status(500)
         response.errors = err

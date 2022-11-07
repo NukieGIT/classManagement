@@ -2,7 +2,7 @@
 
     <div class="inputWrapper">
         <label class="theme-transition" for="input">{{ labelValue }}</label>
-        <input name="input" :type="inputType" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
+        <input name="input" :id="id" :min="inputType == 'number' ? min : null" :max="inputType == 'number' ? max : null" :type="inputType" :value="modelValue" @input="emitAll">
     </div>
 
 </template>
@@ -12,8 +12,21 @@
     const props = defineProps({
         labelValue: String,
         inputType: String,
-        modelValue: String
+        modelValue: String,
+        id: String,
+        min: String,
+        max: String
     })
+
+    const emits = defineEmits([
+        "update:modelValue",
+        "fired"
+    ])
+
+    function emitAll(e) {
+        emits("update:modelValue", e.target.value)
+        emits("fired")
+    }
 
 </script>
 

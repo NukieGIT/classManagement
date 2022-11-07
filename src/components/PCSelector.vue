@@ -1,12 +1,16 @@
 <template>
 
+    <Modal @hideModal="showModal = false" v-if="showModal">
+        <AddState :pc="currPC"></AddState>
+    </Modal>
+
     <h1 v-if="!doExist">BRAK KOMPUTERÓW</h1>
     <div class="wrapper">
         <div v-for="pc in pcs" class="pc hover theme-transition">
             <PC :show-label="true" :show-info="true">
                 <template #info>
                     <p class="info-p theme-transition">Numer Komputera: {{ pc.room_pos }}</p>
-                    <RouterLink class="add-button theme-transition" to="">Dodaj stan</RouterLink>
+                    <button @click="modalShow(pc.uuid, pc.room_pos)" class="add-button theme-transition" to="">Dodaj stan</button>
                 </template>
                 <template #history v-if="pc.exists">
                     <table class="table theme-transition">
@@ -15,13 +19,12 @@
                             <th>Godzina</th>
                             <th>Data</th>
                         </tr>
-                        <tr v-for="(item, index) in JSON.parse(pc.condition)" :class="`status-${JSON.parse(pc.condition)[index]}`">
+                        <tr v-for="(item, index) in Math.min(stateLimit[1], pc.state_count)" :class="`status-${JSON.parse(pc.condition)[index]}`">
                             <td>{{ JSON.parse(pc.desc)[index] }}</td>
-                            <td>{{ TimeTable.getClassID(JSON.parse(pc.hour)[index]) }}</td>
+                            <td>{{ TimeTable.formatTimeTable(TimeTableService.getClassID(JSON.parse(pc.hour)[index])) }}</td>
                             <td>{{ JSON.parse(pc.date)[index] }}</td>
                         </tr>
                     </table>
-                    <!-- <button class="hist-btn">Pokaż Więcej</button> -->
                     <RouterLink class="hist-btn theme-transition" :to="`${useCurrentRoomPath().$state.currentRoom}/${pc.uuid}`">Pokaż Więcej</RouterLink>
                 </template>
             </PC>
@@ -29,7 +32,13 @@
     </div>
 
 </template>
+<script>
 
+    export default {
+        inheritAttrs: false
+    }
+
+</script>
 <script setup>
     import axios from 'axios';
     import { onMounted, ref } from 'vue';
@@ -37,10 +46,23 @@
     import authHeaderToken from '@/services/authHeaderToken';
     import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
     import PC from "@/components/PC.vue";
-    import TimeTable from '../services/TimeTableService';
+    import TimeTableService from '../services/TimeTableService';
+    import Modal from "@/components/Modal.vue";
+    import AddState from "@/components/AddState.vue";
+import TimeTable from '../services/TimeTableService';
 
     const pcs = ref([])
     const doExist = ref(true)
+
+    const showModal = ref(false)
+    const currPC = ref()
+
+    const stateLimit = [0, 3]
+
+    function modalShow(pcUUID, pos) {
+        currPC.value = { pcUUID, pos }
+        showModal.value = true
+    }
     
     onMounted(async () => {
         useCurrentRoomPath().$state.currentRoom = useRoute().params.room
@@ -48,14 +70,14 @@
             const res = await axios.get('http://localhost:5823/pcs', {
                 params: {
                     room: useRoute().params.room,
-                    fromto: [0, 3]
+                    fromto: stateLimit
                 },
                 ...authHeaderToken()
             })
             if (!(res.data && res.data.values.length > 0)) {
                 doExist.value = false
             }
-            pcs.value = res.data.values
+            pcs.value = JSON.parse(res.data.values)
         } catch (err) {
             console.log(err);
         }
@@ -111,6 +133,8 @@
         justify-content: center;
         width: 100%;
         height: 50%;
+        border: none;
+        font-size: 1rem;
         text-decoration: none;
         color: var(--text);
         background-color: var(--bg-nav);
@@ -118,6 +142,7 @@
 
     .add-button:hover {
         text-decoration: underline;
+        cursor: pointer;
     }
 
     .hist-btn {
@@ -140,10 +165,3 @@
 
 
 </style>
-<script>
-
-    export default {
-        inheritAttrs: false
-    }
-
-</script>

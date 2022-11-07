@@ -11,7 +11,7 @@
                         </tr>
                         <tr v-for="state in states" :class="`status-${state.condition}`">
                             <td>{{ state.description }}</td>
-                            <td>{{ TimeTable.getClassID(state.hour) }}</td>
+                            <td>{{ TimeTable.formatTimeTable(TimeTable.getClassID(state.hour)) }}</td>
                             <td>{{ state.date }}</td>
                         </tr>
                     </table>

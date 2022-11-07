@@ -1,4 +1,3 @@
-// const http = require("http")
 const express = require('express')
 const db = require('./db')
 const app = express()
@@ -11,8 +10,10 @@ const getUsers = require('./routes/users')
 const signin = require('./routes/signin')
 const signup = require('./routes/signup')
 const getPerms = require('./routes/perms')
+const getStates = require('./routes/states')
 const getRooms = require('./routes/rooms')
 const getTimeTable = require('./routes/getTimeTable')
+const addState = require('./routes/addState')
 
 const verifyJWT = require('./middleware/verifyJWT')
 const checkPerms = require('./middleware/permsCheck')
@@ -36,7 +37,11 @@ app.post('/signin', signin)
 
 app.get('/perms', [verifyJWT, checkPerms("admin")], getPerms)
 
+app.get('/states', getStates)
+
 app.post('/signup', [verifyJWT, checkPerms(["admin", "Head Teacher"])], signup)
+
+app.post('/addState', [verifyJWT], addState)
 
 app.get('/rooms', verifyJWT, getRooms)
 

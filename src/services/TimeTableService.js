@@ -43,6 +43,17 @@ export default class TimeTable {
         return null
     }
 
+    static formatTimeTable(result) {
+        if (!result.error) {
+            return `${result.class} (${result.timeGiven})`
+        } else {
+            if (result.class) {
+                return `${result.error} (${result.timeGiven}), Następna lekcja: ${result.class}`
+            }
+            return `${result.error} (${result.timeGiven})`
+        }
+    }
+
     static getTimeTableLen() {
         return timetable.length
     }

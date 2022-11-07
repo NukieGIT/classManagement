@@ -2,6 +2,7 @@ const db = require('../db')
 
 const Utils = require("../utils/Ubackend")
 const Response = require("../utils/Response")
+const { bigIntToJson } = require('../utils/Ubackend')
 
 const getPcs = async (req, res) => {
     let conn
@@ -19,6 +20,7 @@ const getPcs = async (req, res) => {
             ${Utils.genConcatArr("DATE_FORMAT(pcSt.date, '%Y-%m-%d')", `ORDER BY pcSt.date DESC ${vals}`)} as 'date',
             ${Utils.genConcatArr("TIME_FORMAT(pcSt.date, '%H:%i')", `ORDER BY pcSt.date DESC ${vals}`)} as 'hour',
             ${Utils.genConcatArr("pcSt.condition", `ORDER BY pcSt.date DESC ${vals}`)} as 'condition',
+            COUNT(pcSt.uuid) as 'state_count',
             (pcSt.pc_uuid IS NOT NULL) AS 'exists'
         FROM pcs pc
         LEFT JOIN pcs_state pcSt
@@ -39,7 +41,7 @@ const getPcs = async (req, res) => {
 
         const result = await conn.query(query, queryParams)
         
-        response.values = result
+        response.values = bigIntToJson(result)
     } catch (err) {
         res.status(500)
         response.errors = err

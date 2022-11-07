@@ -21,7 +21,7 @@
         place-items: center;
         padding: 20px;
         width: 100%;
-        height: calc(100vh - var(--header-height));
+        /* height: calc(100vh - var(--header-height)); */
     }
 
 </style>

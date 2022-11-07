@@ -1,8 +1,8 @@
 <template>
 
     <div class="theme-transition">
-        <RouterLink class="headerRoute theme-transition" to="/rooms">Rooms</RouterLink>
-        <RouterLink class="headerRoute theme-transition" to="/users">Users</RouterLink>
+        <RouterLink class="headerRoute theme-transition" to="/rooms">Klasy</RouterLink>
+        <RouterLink class="headerRoute theme-transition" to="/users">Użytkownicy</RouterLink>
     </div>
 
 </template>

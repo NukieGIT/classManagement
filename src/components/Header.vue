@@ -1,6 +1,6 @@
 <template>
 
-    <header class="theme-transition">
+    <header class="theme-transition" :class="{ shadow: shadowActive }">
         <div class="split split1">
             <p class="theme-transition">
                 {{ $route.name }}
@@ -21,8 +21,27 @@
 <script setup>
     import { useCurrentRoomPath } from '@/stores/CurrentRoomPath';
     import { useLoginState } from '@/stores/loginState';
+    import { onBeforeUnmount, onMounted, ref } from 'vue';
     import HeaderOptions from './HeaderOptions.vue';
     import ThemeSwitch from './ThemeSwitch.vue';
+
+    const shadowActive = ref(false)
+
+    function addHeaderShadow() {
+        if(window.scrollY > 0) {
+            shadowActive.value = true
+        } else {
+            shadowActive.value = false
+        }
+    }
+
+    onMounted(() => {
+        window.addEventListener("scroll", addHeaderShadow)
+    })
+
+    onBeforeUnmount(() => {
+        window.removeEventListener("scroll", addHeaderShadow)
+    })
 
 </script>
 
@@ -37,6 +56,13 @@
         width: 100%;
         position: sticky;
         top: 0;
+        transition: box-shadow 300ms ease-out, background-color 500ms ease-in-out, color 1000ms ease-in-out, border 500ms ease-in-out;
+    }
+    
+    header.shadow {
+        -webkit-box-shadow: 0px 8px 20px -16px black;
+        -moz-box-shadow: 0px 8px 20px -16px black;
+        box-shadow: 0px 8px 20px -16px black;
     }
 
     .split {

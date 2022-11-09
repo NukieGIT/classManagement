@@ -1,8 +1,9 @@
 <template>
-
-    <Modal @hideModal="showModal = false" v-if="showModal">
-        <AddState :pc="currPC"></AddState>
-    </Modal>
+    <FadeTransition>
+        <Modal @hideModal="showModal = false" v-if="showModal">
+            <AddState :pc="currPC"></AddState>
+        </Modal>
+    </FadeTransition>
 
     <h1 v-if="!doExist">BRAK KOMPUTERÓW</h1>
     <div class="wrapper">
@@ -49,7 +50,8 @@
     import TimeTableService from '../services/TimeTableService';
     import Modal from "@/components/Modal.vue";
     import AddState from "@/components/AddState.vue";
-import TimeTable from '../services/TimeTableService';
+    import TimeTable from '../services/TimeTableService';
+    import FadeTransition from './transitions/FadeTransition.vue';
 
     const pcs = ref([])
     const doExist = ref(true)

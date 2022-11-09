@@ -1,15 +1,16 @@
 <template>
-
-    <div class="wrapper3">
-        <div class="container">
-            <span @click="$emit('hideModal')">x</span>
-            <slot></slot>
-        </div>
+    <div class="wrapper3" @click="$emit('hideModal')">
+        <FlowUpTransition :appear="true">
+            <div class="container" @click.stop="">
+                <span @click="$emit('hideModal')">x</span>
+                <slot></slot>
+            </div>
+        </FlowUpTransition>
     </div>
-
 </template>
 
 <script setup>
+    import FlowUpTransition from './transitions/FlowUpTransition.vue';
 
 
 
@@ -27,7 +28,6 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        transition: 0.3s ease-in-out;
     }
 
     .container {

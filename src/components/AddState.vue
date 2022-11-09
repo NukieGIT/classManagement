@@ -132,6 +132,7 @@
 
     h2 {
         color: var(--text);
+        margin-top: 0;
     }
 
     button {
